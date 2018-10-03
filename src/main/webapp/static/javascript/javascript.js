@@ -5,8 +5,9 @@ function addToCart(e) {
         url: "/ajax/add-to-cart",
         type: "POST",
         data: {action: "add",id: button.id},
-        success: function () {
+        success: function (answer) {
             console.log("item added to cart");
+            $("#badge").text(answer);
         },
         error: function () {
             alert("Something went wrong");

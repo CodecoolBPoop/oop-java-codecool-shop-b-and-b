@@ -28,6 +28,8 @@ public class Order {
         for (LineItem currentItem:items){
             if (currentItem.name == item.name){
                 currentItem.increaseQuantity();
+                this.totatlPrice += item.getDefaultPrice();
+                this.totalItems += 1;
                 return;
             }
         }
