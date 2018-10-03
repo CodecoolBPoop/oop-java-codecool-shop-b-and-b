@@ -8,6 +8,8 @@ import java.util.List;
 public class Order {
     private List<LineItem> items;
     private int id;
+    private double totatlPrice;
+    private int totalItems;
 
     public int getId() {
         return id;
@@ -16,6 +18,8 @@ public class Order {
     public Order() {
         this.id = CurrentOrders.createNewOrderId();
         this.items = new LinkedList<>();
+        this.totalItems = 0;
+        this.totatlPrice = 0;
         CurrentOrders.addOrder(this);
     }
 
@@ -28,10 +32,20 @@ public class Order {
             }
         }
         items.add(item);
+        this.totatlPrice += item.getDefaultPrice();
+        this.totalItems += 1;
     }
 
     public void remove(Product product){
         items.remove(product);
+    }
+
+    public int getTotalItems() {
+        return totalItems;
+    }
+
+    public double getTotatlPrice() {
+        return totatlPrice;
     }
 
     @Override
@@ -40,5 +54,9 @@ public class Order {
                 "items=" + items +
                 ", OrderId=" + id +
                 '}';
+    }
+
+    public List<LineItem> getItems() {
+        return items;
     }
 }

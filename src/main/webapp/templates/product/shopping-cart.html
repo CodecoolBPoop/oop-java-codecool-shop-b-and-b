@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Codecool" />
@@ -33,5 +33,14 @@
         <h1>Shopping Cart</h1>
     </div>
 
+
+    <div th:each="item, iterStat:${items}" class="container">
+        <div class="row">
+        <div th:text="${item.getName()}" class="col-sm-3"></div>
+        <div th:text="${item.getQuantity()}" class="col-sm-3"></div>
+        <div th:text="${item.getDefaultPrice()}" class="col-sm-3"></div>
+        <div th:text="${item.getTotalPrice()}" class="col-sm-3"></div>
+        </div>
+    </div>
 </body>
 </html>

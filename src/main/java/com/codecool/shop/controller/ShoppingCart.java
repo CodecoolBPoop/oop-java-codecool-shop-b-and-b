@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet (urlPatterns = {"/shopping-cart"})
 public class ShoppingCart extends HttpServlet {
@@ -24,7 +26,7 @@ public class ShoppingCart extends HttpServlet {
             new Order();
         }
 
-
+        context.setVariable("items", CurrentOrders.getOrder(1).getItems());
         engine.process("product/shopping-cart.html", context, resp.getWriter());
     }
 }
