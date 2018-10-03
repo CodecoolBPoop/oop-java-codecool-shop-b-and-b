@@ -1,9 +1,11 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.implementation.AllCarts;
+import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.implementation.CurrentOrders;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.model.Cart;
-import com.codecool.shop.model.Product;
+import com.codecool.shop.model.Order;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,13 +18,13 @@ import java.io.IOException;
 public class ShoppingCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        new Cart();
-        new Cart();
-        Cart cart = AllCarts.getCart(1);
-        Cart cart2= AllCarts.getCart(2);
-        cart.addItem(ProductDaoMem.getInstance().find(1));
-        cart.addItem(ProductDaoMem.getInstance().find(2));
-        System.out.println(cart);
-        System.out.println(cart2);
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        WebContext context = new WebContext(req, resp, req.getServletContext());
+        new Order();
+        new Order();
+        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(1));
+        System.out.println(CurrentOrders.getOrder(2));
+        System.out.println(CurrentOrders.getOrder(1));
+        engine.process("product/shopping-cart.html", context, resp.getWriter());
     }
 }

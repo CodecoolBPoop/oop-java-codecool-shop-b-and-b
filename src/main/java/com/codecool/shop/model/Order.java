@@ -1,11 +1,11 @@
 package com.codecool.shop.model;
 
-import com.codecool.shop.dao.implementation.AllCarts;
+import com.codecool.shop.dao.implementation.CurrentOrders;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class Cart {
+public class Order {
     private List<Product> items;
     private int id;
 
@@ -13,10 +13,10 @@ public class Cart {
         return id;
     }
 
-    public Cart() {
-        this.id = AllCarts.createNewCartId();
+    public Order() {
+        this.id = CurrentOrders.createNewOrderId();
         this.items = new LinkedList<>();
-        AllCarts.addCart(this);
+        CurrentOrders.addOrder(this);
     }
 
     public void addItem(Product product){
@@ -29,7 +29,7 @@ public class Cart {
 
     @Override
     public String toString() {
-        return "Cart{" +
+        return "Order{" +
                 "items=" + items +
                 ", id=" + id +
                 '}';
