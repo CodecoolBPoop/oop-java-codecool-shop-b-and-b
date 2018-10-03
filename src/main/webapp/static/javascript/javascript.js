@@ -14,8 +14,14 @@ function addToCart(e) {
     });
 }
 
+function toShoppingCart(e) {
+    e.preventDefault();
+    window.location = '/shopping-cart';
+}
+
 function main() {
     $(".addToCart").click(addToCart);
+    $(".shoppingCart").click(toShoppingCart);
 }
 
 main();

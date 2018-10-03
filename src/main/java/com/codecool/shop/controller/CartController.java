@@ -3,9 +3,11 @@ package com.codecool.shop.controller;
 // purge the unused imports at the end!
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.CurrentOrders;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.model.Order;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -23,8 +25,10 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws SecurityException, IOException {
-        if (true) {
-            System.out.println(ProductDaoMem.getInstance().find(Integer.parseInt(req.getParameter("id"))));
+        if (CurrentOrders.getOrder(1) == null) {
+            new Order();
         }
+        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(Integer.parseInt(req.getParameter("id"))));
+
     }
 }
