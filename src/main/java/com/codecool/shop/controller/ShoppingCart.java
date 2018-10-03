@@ -21,9 +21,13 @@ public class ShoppingCart extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         new Order();
-        new Order();
         CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(1));
-        System.out.println(CurrentOrders.getOrder(2));
+        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(1));
+        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(1));
+        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(1));
+        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(2));
+        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(2));
+        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(3));
         System.out.println(CurrentOrders.getOrder(1));
         engine.process("product/shopping-cart.html", context, resp.getWriter());
     }
