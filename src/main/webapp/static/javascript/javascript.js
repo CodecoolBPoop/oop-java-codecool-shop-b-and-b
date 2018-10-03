@@ -2,7 +2,7 @@ function addToCart(e) {
     e.preventDefault();
     let button = e.target;
     $.ajax({
-        url: "/",
+        url: "/ajax/add-to-cart",
         type: "POST",
         data: {action: "add",id: button.id},
         success: function () {

@@ -1,5 +1,6 @@
 package com.codecool.shop.controller;
 
+// purge the unused imports at the end!
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
@@ -22,6 +23,8 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws SecurityException, IOException {
-        System.out.println(req.getParameter("id"));
+        if (true) {
+            System.out.println(ProductDaoMem.getInstance().find(Integer.parseInt(req.getParameter("id"))));
+        }
     }
 }
