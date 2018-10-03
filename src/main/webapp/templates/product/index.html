@@ -35,6 +35,9 @@
     <h1>Codecool Shop</h1>
 </div>
 
+<div class="categories">
+    <a th:each="category,iterStat : ${categories}" th:text="${category.name}" th:href="'http://localhost:8888/?category='+${category.id}"> </a>
+</div>
 <div class="container">
     <div class="well well-sm">
         <strong th:text="${category.name}">Category Title</strong>
