@@ -38,9 +38,12 @@
 <div class="categories">
     <a th:each="category,iterStat : ${categories}" th:text="${category.name}" th:href="'http://localhost:8888/?category='+${category.id}"> </a>
 </div>
+<div class="suppliers">
+    <a th:each="supplier,iterStat : ${suppliers}" th:text="${supplier.name}" th:href="'http://localhost:8888/?supplier='+${supplier.id}"></a>
+</div>
 <div class="container">
     <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
+        <strong th:text="${category != null}? ${category.name}">Category Title</strong>
     </div>
 
     <div id="products" class="row list-group">
