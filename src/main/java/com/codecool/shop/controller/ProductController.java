@@ -5,6 +5,7 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -24,17 +25,39 @@ public class ProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-
-//        Map params = new HashMap<>();
-//        params.put("category", productCategoryDataStore.find(1));
-//        params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
+        SupplierDaoMem supplierDataStore = SupplierDaoMem.getInstance();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-//        context.setVariables(params);
+        Map params = new HashMap<>();
+
+        int category=1;
+        int supplier;
+
+        if (req.getParameter("category") != null) {
+            category =Integer.parseInt(req.getParameter("category"));
+            params.put("category", productCategoryDataStore.find(category));
+            context.setVariable("category", params.get("category"));
+            params.put("products", productDataStore.getBy(productCategoryDataStore.find(category)));
+        }else if (req.getParameter("supplier") != null){
+            supplier = Integer.parseInt(req.getParameter("supplier"));
+            params.put("category", supplierDataStore.find(supplier));
+            params.put("products", productDataStore.getBy(supplierDataStore.find(supplier)));
+        }else {
+            params.put("products", productDataStore.getBy(productCategoryDataStore.find(category)));
+            params.put("category", productCategoryDataStore.find(category));
+            context.setVariable("category", params.get("category"));
+        }
+
+
+
+
+
+        context.setVariables(params);
+        context.setVariable("categories", ProductCategoryDaoMem.getInstance().getAll());
+        context.setVariable("suppliers", supplierDataStore.getAll());
         context.setVariable("recipient", "World");
-        context.setVariable("category", productCategoryDataStore.find(1));
-        context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));
+        context.setVariable("products", params.get("products"));
         engine.process("product/index.html", context, resp.getWriter());
     }
 
