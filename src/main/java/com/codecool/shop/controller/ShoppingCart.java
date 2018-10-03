@@ -20,15 +20,12 @@ public class ShoppingCart extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        new Order();
-        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(1));
-        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(1));
-        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(1));
-        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(1));
-        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(2));
-        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(2));
-        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(3));
-        System.out.println(CurrentOrders.getOrder(1));
+        if (CurrentOrders.getOrder(1)==null){
+            new Order();
+        }
+
+
+
         engine.process("product/shopping-cart.html", context, resp.getWriter());
     }
 }
