@@ -1,6 +1,6 @@
-function addToCart(event) {
-    let button = event.target;
-    event.preventDefault();
+function addToCart(e) {
+    e.preventDefault();
+    let button = e.target;
     $.ajax({
         url: "/",
         type: "POST",
@@ -15,7 +15,7 @@ function addToCart(event) {
 }
 
 function main() {
-    $(".addToCart").click(addToCart, event);
+    $(".addToCart").click(addToCart);
 }
 
 main();

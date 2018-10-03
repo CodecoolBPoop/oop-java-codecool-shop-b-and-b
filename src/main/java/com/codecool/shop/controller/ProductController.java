@@ -38,9 +38,6 @@ public class ProductController extends HttpServlet {
         engine.process("product/index.html", context, resp.getWriter());
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws SecurityException, IOException {
-        System.out.println(req.getParameter("id"));
-    }
+
 
 }
