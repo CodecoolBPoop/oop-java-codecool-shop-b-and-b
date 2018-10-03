@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Order {
-    private List<Product> items;
+    private List<LineItem> items;
     private int id;
 
     public int getId() {
@@ -20,7 +20,14 @@ public class Order {
     }
 
     public void addItem(Product product){
-        items.add(product);
+        LineItem item = new LineItem(product);
+        for (LineItem currentItem:items){
+            if (currentItem.name == item.name){
+                currentItem.increaseQuantity();
+                return;
+            }
+        }
+        items.add(item);
     }
 
     public void remove(Product product){
@@ -31,7 +38,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "items=" + items +
-                ", id=" + id +
+                ", OrderId=" + id +
                 '}';
     }
 }
