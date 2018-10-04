@@ -25,7 +25,7 @@ public class ShoppingCart extends HttpServlet {
         if (CurrentOrders.getOrder(1)==null){
             new Order();
         }
-
+        context.setVariable("orderid",1);
         context.setVariable("items", CurrentOrders.getOrder(1).getItems());
         engine.process("product/shopping-cart.html", context, resp.getWriter());
     }

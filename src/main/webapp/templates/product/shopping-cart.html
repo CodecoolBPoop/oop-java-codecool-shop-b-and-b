@@ -32,8 +32,6 @@
     <div class="jumbotron text-center">
         <h1>Shopping Cart</h1>
     </div>
-
-
     <div th:each="item, iterStat:${items}" class="container">
         <div class="row">
         <div th:text="${item.getName()}" class="col-sm-3"></div>
@@ -41,6 +39,10 @@
         <div th:text="${item.getDefaultPrice()}" class="col-sm-3"></div>
         <div th:text="${item.getTotalPrice()}" class="col-sm-3"></div>
         </div>
+    </div>
+    <div th:class="container">
+        <button th:if="${items.size() != 0}" th:class="checkout" th:data-orderid="${orderid}" class="button">Checkout</button>
+        <h1 th:if="${items.size() == 0}">Your cart is empty!</h1>
     </div>
 </body>
 </html>
