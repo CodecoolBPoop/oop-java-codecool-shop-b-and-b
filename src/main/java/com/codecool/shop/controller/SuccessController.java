@@ -27,6 +27,8 @@ public class SuccessController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+
+        CurrentOrders.removeOrder(CurrentOrders.getOrder(1));
         engine.process("product/success.html", context, resp.getWriter());
     }
 }

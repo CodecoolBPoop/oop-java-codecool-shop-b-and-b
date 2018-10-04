@@ -25,7 +25,6 @@ public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(req.getParameter("first_name"));
         Order currentOrder = CurrentOrders.getOrder(1);
         currentOrder.setFirstName(req.getParameter("first_name"));
         currentOrder.setLastName(req.getParameter("last_name"));
@@ -33,7 +32,6 @@ public class CheckoutController extends HttpServlet {
         currentOrder.setPhone(req.getParameter("phone"));
         currentOrder.setShippingAddress(req.getParameter("shipping_address"));
         currentOrder.setBillingAdrress(req.getParameter("billing_address"));
-        System.out.println(currentOrder.toString());
         resp.sendRedirect("/payment?id=" + currentOrder.getId());
     }
 }
