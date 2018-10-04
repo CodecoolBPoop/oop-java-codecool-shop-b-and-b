@@ -1,0 +1,33 @@
+.glyphicon {
+    margin-right:5px;
+}
+
+.thumbnail img
+{
+    margin-top: 10px;
+}
+.item.list-group-item
+{
+    float: none;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+body {
+    background-color: red;
+}
+
+.jumbotron {
+    background: red;
+}
+
+.panel {
+    background-color: red;
+    border-color: red;
+}
+
+
+h1{
+    text-align: center;
+}
