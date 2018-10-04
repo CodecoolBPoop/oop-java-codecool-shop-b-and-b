@@ -35,7 +35,7 @@
     <div th:each="item, iterStat:${items}" class="container">
         <div class="row">
         <div th:text="${item.getName()}" class="col-sm-3"></div>
-        <div th:text="${item.getQuantity()}" class="col-sm-3"></div>
+            <div class="col-sm-3"><input th:min="0" th:max="99" th:type="number" th:name="quantity" th:value="${item.getQuantity()}"><img th:data-name="${item.getName()}"th:class="refresh" src="/static/img/refresh_icon.png"  height="42" width="42"></div>
         <div th:text="${item.getDefaultPrice()}" class="col-sm-3"></div>
         <div th:text="${item.getTotalPrice()}" class="col-sm-3"></div>
         </div>

@@ -64,3 +64,22 @@
 h1{
     text-align: center;
 }
+
+.quantityinput{
+    min-width: auto;
+}
+
+.refresh{
+    height: 15px;
+    width: auto;
+}
+
+img:hover{
+    cursor: pointer;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

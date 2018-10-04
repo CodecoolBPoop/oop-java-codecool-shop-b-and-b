@@ -20,9 +20,28 @@ function toShoppingCart(e) {
     window.location = '/shopping-cart';
 }
 
+function changeQuantity(e) {
+    e.preventDefault();
+    var quantityInputValue = e.target.parentElement.firstChild.value;
+    var name = e.target.dataset.name;
+    console.log(name);
+    $.ajax({
+        url: "/ajax/change-quantity",
+        type: "POST",
+        data: {quantity: quantityInputValue, productName: name},
+        success: function (answer) {
+        },
+        error: function () {
+            alert("Something went wrong");
+        }
+    });
+
+}
+
 function main() {
     $(".addToCart").click(addToCart);
     $(".shoppingCart").click(toShoppingCart);
+    $(".refresh").click(changeQuantity);
 }
 
 main();
