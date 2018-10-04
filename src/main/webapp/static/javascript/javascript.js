@@ -23,7 +23,6 @@ function toShoppingCart(e) {
 function main() {
     $(".addToCart").click(addToCart);
     $(".shoppingCart").click(toShoppingCart);
-    $(".checkout").click(checkoutModal);
 }
 
 main();

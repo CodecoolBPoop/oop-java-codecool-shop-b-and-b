@@ -20,20 +20,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/checkout"})
-public class CheckoutController extends HttpServlet {
+@WebServlet(urlPatterns = {"/success"})
+public class SuccessController extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(req.getParameter("first_name"));
-        Order currentOrder = CurrentOrders.getOrder(1);
-        currentOrder.setFirstName(req.getParameter("first_name"));
-        currentOrder.setLastName(req.getParameter("last_name"));
-        currentOrder.setEmail(req.getParameter("email"));
-        currentOrder.setPhone(req.getParameter("phone"));
-        currentOrder.setShippingAddress(req.getParameter("shipping_address"));
-        currentOrder.setBillingAdrress(req.getParameter("billing_address"));
-        System.out.println(currentOrder.toString());
-        resp.sendRedirect("/payment?id=" + currentOrder.getId());
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        WebContext context = new WebContext(req, resp, req.getServletContext());
+        engine.process("product/success.html", context, resp.getWriter());
     }
 }
