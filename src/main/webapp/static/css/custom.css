@@ -107,9 +107,20 @@ a:hover{
     height: 250px;
 }
 
+.mycard{
+    margin-bottom: 25px;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 3px 3px 4px #6f6d6d
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+h3{
+    display: inline-block;
+
 }
 

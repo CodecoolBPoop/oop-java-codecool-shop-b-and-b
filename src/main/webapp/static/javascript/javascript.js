@@ -24,7 +24,7 @@ function changeQuantity(e) {
     e.preventDefault();
     var quantity = e.target.parentElement.firstChild.value;
     if (quantity == "" || quantity >99) {
-        e.target.parentElement.firstChild.value = 1;
+        e.target.parentElement.firstChild.value = e.target.dataset.quantity;
         alert("Please enter a number between 0 and 99")
     }else {
         var name = e.target.dataset.name;

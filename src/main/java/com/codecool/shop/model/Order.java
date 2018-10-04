@@ -8,7 +8,7 @@ import java.util.List;
 public class Order {
     private List<LineItem> items;
     private int id;
-    private double totatlPrice;
+    private double totalPrice;
     private int totalItems;
 
     public int getId() {
@@ -19,7 +19,7 @@ public class Order {
         this.id = CurrentOrders.createNewOrderId();
         this.items = new LinkedList<>();
         this.totalItems = 0;
-        this.totatlPrice = 0;
+        this.totalPrice = 0;
         CurrentOrders.addOrder(this);
     }
 
@@ -28,13 +28,13 @@ public class Order {
         for (LineItem currentItem:items){
             if (currentItem.name == item.name){
                 currentItem.increaseQuantity();
-                this.totatlPrice += item.getDefaultPrice();
+                this.totalPrice += item.getDefaultPrice();
                 this.totalItems += 1;
                 return;
             }
         }
         items.add(item);
-        this.totatlPrice += item.getDefaultPrice();
+        this.totalPrice += item.getDefaultPrice();
         this.totalItems += 1;
     }
 
@@ -46,8 +46,8 @@ public class Order {
         return totalItems;
     }
 
-    public double getTotatlPrice() {
-        return totatlPrice;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
     public void modifyQuantity(String name, int newQuantity){
@@ -56,13 +56,22 @@ public class Order {
                 if (newQuantity ==0){
                     items.remove(item);
                     setTotalItems();
+                    setTotalPrice();
                     break;
                 }
                 item.setQuantity(newQuantity);
                 setTotalItems();
+                setTotalPrice();
             }
         }
     }
+    public void setTotalPrice(){
+        totalPrice =0;
+        for (LineItem item: items) {
+            totalPrice += item.getDefaultPrice()*item.getQuantity();
+        }
+    }
+
 
     public void setTotalItems(){
         totalItems=0;
