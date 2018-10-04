@@ -1,5 +1,8 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.implementation.CurrentOrders;
+import com.codecool.shop.model.Order;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,5 +19,11 @@ public class ChangeQuantityController extends HttpServlet {
         int newQuantity = Integer.parseInt(req.getParameter("quantity"));
         System.out.println(newQuantity);
         System.out.println(productname);
+        Order currentOrder = CurrentOrders.getOrder(1);
+        currentOrder.modifyQuantity(productname,newQuantity);
+
+        resp.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+        resp.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+        resp.getWriter().write("Successfully changed quantity!");
     }
 }

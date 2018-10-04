@@ -22,19 +22,26 @@ function toShoppingCart(e) {
 
 function changeQuantity(e) {
     e.preventDefault();
-    var quantityInputValue = e.target.parentElement.firstChild.value;
-    var name = e.target.dataset.name;
-    console.log(name);
-    $.ajax({
-        url: "/ajax/change-quantity",
-        type: "POST",
-        data: {quantity: quantityInputValue, productName: name},
-        success: function (answer) {
-        },
-        error: function () {
-            alert("Something went wrong");
-        }
-    });
+    var quantity = e.target.parentElement.firstChild.value;
+    if (quantity == "" || quantity >99) {
+        e.target.parentElement.firstChild.value = 1;
+        alert("Please enter a number between 0 and 99")
+    }else {
+        var name = e.target.dataset.name;
+        $.ajax({
+            url: "/ajax/change-quantity",
+            type: "POST",
+            data: {quantity: quantity, productName: name},
+            success: function (answer) {
+                window.location.href = "/shopping-cart";
+            },
+            error: function () {
+                alert("Something went wrong");
+                window.location.reload();
+            }
+        });
+    }
+
 
 }
 

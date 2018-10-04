@@ -50,6 +50,26 @@ public class Order {
         return totatlPrice;
     }
 
+    public void modifyQuantity(String name, int newQuantity){
+        for (LineItem item: items) {
+            if (item.getName().equals(name)){
+                if (newQuantity ==0){
+                    items.remove(item);
+                    setTotalItems();
+                    break;
+                }
+                item.setQuantity(newQuantity);
+                setTotalItems();
+            }
+        }
+    }
+
+    public void setTotalItems(){
+        totalItems=0;
+        for (LineItem item: items) {
+            totalItems += item.getQuantity();
+        }
+    }
     @Override
     public String toString() {
         return "Order{" +
