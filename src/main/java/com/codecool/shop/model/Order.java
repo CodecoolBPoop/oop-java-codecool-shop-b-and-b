@@ -57,4 +57,8 @@ public class Order {
                 ", OrderId=" + id +
                 '}';
     }
+
+    public List<LineItem> getItems() {
+        return items;
+    }
 }
