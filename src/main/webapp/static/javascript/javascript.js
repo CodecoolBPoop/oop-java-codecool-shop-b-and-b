@@ -20,9 +20,12 @@ function toShoppingCart(e) {
     window.location = '/shopping-cart';
 }
 
+
+
 function main() {
     $(".addToCart").click(addToCart);
     $(".shoppingCart").click(toShoppingCart);
+    $(".checkout").click(checkoutModal);
 }
 
 main();
