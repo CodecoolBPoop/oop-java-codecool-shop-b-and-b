@@ -35,12 +35,12 @@ public class Order {
         for (LineItem currentItem:items){
             if (currentItem.name == item.name){
                 currentItem.increaseQuantity();
-                this.totalPrice += item.getDefaultPrice();
-                this.totalItems += 1;
-                return;
+                break;
             }
         }
-        items.add(item);
+        if (/* TODO */) { // not found
+            items.add(item);
+        }
         this.totalPrice += item.getDefaultPrice();
         this.totalItems += 1;
     }
@@ -64,7 +64,7 @@ public class Order {
                     items.remove(item);
                     setTotalItems();
                     setTotalPrice();
-                    break;
+                    break; // TODO: exercise for the reader :D
                 }
                 item.setQuantity(newQuantity);
                 setTotalItems();
