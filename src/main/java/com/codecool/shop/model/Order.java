@@ -104,7 +104,7 @@ public class Order {
     }
 
     public List<LineItem> getItems() {
-        return items;
+        return new LinkedList<>(items);
     }
 
     public void setFirstName(String firstName) {
