@@ -15,11 +15,12 @@ public class ChangeQuantityController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final Integer usedId = 1;
         String productname = req.getParameter("productName");
         int newQuantity = Integer.parseInt(req.getParameter("quantity"));
         System.out.println(newQuantity);
         System.out.println(productname);
-        Order currentOrder = CurrentOrders.getOrder(1);
+        Order currentOrder = CurrentOrders.getOrder(usedId);
         currentOrder.modifyQuantity(productname,newQuantity);
 
         resp.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
