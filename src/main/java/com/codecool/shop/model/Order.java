@@ -85,6 +85,9 @@ public class Order {
         for (LineItem item: items) {
             totalItems += item.getQuantity();
         }
+        // this.totalItems = items.stream()
+        //     .mapToInt(this::getQuantity)
+        //     .sum();
     }
     @Override
     public String toString() {
