@@ -35,15 +35,18 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+    <h1>Scam Shop</h1>
     <button type="button" class="shoppingCart btn btn-warning">Shopping Cart: <span id="badge" class="badge" th:text="${totalItems}"></span></button>
 </div>
-
+<div th:class="container">
 <div class="categories">
-    <a th:each="category,iterStat : ${categories}" th:text="${category.name}" th:href="'http://localhost:8888/?category='+${category.id}"> </a>
+    <h4>Categories:</h4>
+    <a th:each="category,iterStat : ${categories}" th:class="category" th:text="${category.name}" th:href="'http://localhost:8888/?category='+${category.id}"> </a>
 </div>
 <div class="suppliers">
-    <a th:each="supplier,iterStat : ${suppliers}" th:text="${supplier.name}" th:href="'http://localhost:8888/?supplier='+${supplier.id}"></a>
+    <h4>Suppliers:</h4>
+    <a th:each="supplier,iterStat : ${suppliers}" th:class="category" th:text="${supplier.name}" th:href="'http://localhost:8888/?supplier='+${supplier.id}"></a>
+</div>
 </div>
 <div class="container">
     <div class="well well-sm">
@@ -54,7 +57,7 @@
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img class="group list-group-image myimagesize" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.gif'" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
                     <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>

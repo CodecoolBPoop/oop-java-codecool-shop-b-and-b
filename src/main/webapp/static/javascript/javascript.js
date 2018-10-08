@@ -20,9 +20,35 @@ function toShoppingCart(e) {
     window.location = '/shopping-cart';
 }
 
+function changeQuantity(e) {
+    e.preventDefault();
+    var quantity = e.target.parentElement.firstChild.value;
+    if (quantity == "" || quantity >99) {
+        e.target.parentElement.firstChild.value = e.target.dataset.quantity;
+        alert("Please enter a number between 0 and 99")
+    }else {
+        var name = e.target.dataset.name;
+        $.ajax({
+            url: "/ajax/change-quantity",
+            type: "POST",
+            data: {quantity: quantity, productName: name},
+            success: function (answer) {
+                window.location.href = "/shopping-cart";
+            },
+            error: function () {
+                alert("Something went wrong");
+                window.location.reload();
+            }
+        });
+    }
+
+
+}
+
 function main() {
     $(".addToCart").click(addToCart);
     $(".shoppingCart").click(toShoppingCart);
+    $(".refresh").click(changeQuantity);
 }
 
 main();
