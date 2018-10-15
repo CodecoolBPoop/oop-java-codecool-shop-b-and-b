@@ -8,8 +8,15 @@ import java.util.List;
 public class Order {
     private List<LineItem> items;
     private int id;
-    private double totatlPrice;
+    private double totalPrice;
     private int totalItems;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String shippingAddress;
+    private String billingAdrress;
+
 
     public int getId() {
         return id;
@@ -19,7 +26,7 @@ public class Order {
         this.id = CurrentOrders.createNewOrderId();
         this.items = new LinkedList<>();
         this.totalItems = 0;
-        this.totatlPrice = 0;
+        this.totalPrice = 0;
         CurrentOrders.addOrder(this);
     }
 
@@ -28,13 +35,13 @@ public class Order {
         for (LineItem currentItem:items){
             if (currentItem.name == item.name){
                 currentItem.increaseQuantity();
-                this.totatlPrice += item.getDefaultPrice();
+                this.totalPrice += item.getDefaultPrice();
                 this.totalItems += 1;
                 return;
             }
         }
         items.add(item);
-        this.totatlPrice += item.getDefaultPrice();
+        this.totalPrice += item.getDefaultPrice();
         this.totalItems += 1;
     }
 
@@ -46,15 +53,78 @@ public class Order {
         return totalItems;
     }
 
-    public double getTotatlPrice() {
-        return totatlPrice;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
+    public void modifyQuantity(String name, int newQuantity){
+        for (LineItem item: items) {
+            if (item.getName().equals(name)){
+                if (newQuantity ==0){
+                    items.remove(item);
+                    setTotalItems();
+                    setTotalPrice();
+                    break;
+                }
+                item.setQuantity(newQuantity);
+                setTotalItems();
+                setTotalPrice();
+            }
+        }
+    }
+    public void setTotalPrice(){
+        totalPrice =0;
+        for (LineItem item: items) {
+            totalPrice += item.getDefaultPrice()*item.getQuantity();
+        }
+    }
+
+
+    public void setTotalItems(){
+        totalItems=0;
+        for (LineItem item: items) {
+            totalItems += item.getQuantity();
+        }
+    }
     @Override
     public String toString() {
         return "Order{" +
                 "items=" + items +
                 ", OrderId=" + id +
+                ", FirstName=" + firstName +
+                ", LastName=" + lastName +
+                ", Email=" + email +
+                ", Phone=" + phone +
+                ", ShippingAdress=" + shippingAddress +
+                ", BillingAdress=" + billingAdrress +
                 '}';
+    }
+
+    public List<LineItem> getItems() {
+        return items;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public void setBillingAdrress(String billingAdrress) {
+        this.billingAdrress = billingAdrress;
     }
 }

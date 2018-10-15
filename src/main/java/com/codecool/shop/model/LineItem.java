@@ -38,6 +38,11 @@ public class LineItem extends BaseModel {
         totalPrice+= this.defaultPrice;
     }
 
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+        totalPrice = quantity*this.defaultPrice;
+    }
+
     @Override
     public String toString() {
         return "LineItem{" +

@@ -24,22 +24,29 @@ public class Initializer implements ServletContextListener {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
-        supplierDataStore.add(lenovo);
+        Supplier bohi = new Supplier("Bohi", "The big nothing seller.");
+        supplierDataStore.add(bohi);
+        Supplier bazsi = new Supplier("Bazsi", "A real scammer.");
+        supplierDataStore.add(bazsi);
 
 
         //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(tablet);
-        ProductCategory laptop = new ProductCategory("Laptop", "Hardware", "A laptop, also called a notebook computer or just notebook, is a small, portable personal computer with a \"clamshell\" form factor, having, typically, a thin LCD or LED computer screen mounted on the inside of the upper lid of the \"clamshell\".");
-        productCategoryDataStore.add(laptop);
+        ProductCategory nothing = new ProductCategory("Nothing", "Nothing", "Nothing is .... nothing, right?? I don't know what you expected.");
+        productCategoryDataStore.add(nothing);
+        ProductCategory scam = new ProductCategory("Scam", "Scam", "Usually these products are nothing but scam!");
+        productCategoryDataStore.add(scam);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo Legion Y530",800,"USD","Newest model of the Y series. GTX 1050Ti, I7 8750",laptop,lenovo));
+        productDataStore.add(new Product("Money to the trashcan", 10, "USD", "Fantastic price. Our bank account is the trashcan ;)", nothing, bohi));
+        productDataStore.add(new Product("Nothing", 99, "USD", "Keyboard is not included. No usb ports. Basically it is NOTHING.", nothing, bohi));
+        productDataStore.add(new Product("For the fishes", 2, "USD", "This is for the fishes", nothing, bohi));
+        productDataStore.add(new Product("Make it rain",70,"USD","You have so much money and you can't do anything with it so just send it to us!",nothing,bazsi));
+        productDataStore.add(new Product("Not a real product", 146,"USD", "This site doesn't sell anything i swear!", scam,bazsi));
+        productDataStore.add(new Product("HUGE SCAM", 2000,"USD", "LIMITED OFFER! HUGE SCAM! BUY NOW!", scam,bazsi));
+        productDataStore.add(new Product("Huge mistake", 911,"USD", "This is a huge mistake!",scam,bazsi));
+        productDataStore.add(new Product("What is this??", 255,"USD", "What are you doing on this website brother??", scam,bohi));
+        productDataStore.add(new Product("The money taker", 400,"USD", "Shut up, don't ask questions.We are just taking your money!",nothing,bohi));
+        productDataStore.add(new Product("Trap", 300,"USD","It's a trap!",scam,bazsi));
+
     }
 }
