@@ -10,6 +10,13 @@ public class Order {
     private int id;
     private double totatlPrice;
     private int totalItems;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String shippingAddress;
+    private String billingAdrress;
+
 
     public int getId() {
         return id;
@@ -55,6 +62,40 @@ public class Order {
         return "Order{" +
                 "items=" + items +
                 ", OrderId=" + id +
+                ", FirstName=" + firstName +
+                ", LastName=" + lastName +
+                ", Email=" + email +
+                ", Phone=" + phone +
+                ", ShippingAdress=" + shippingAddress +
+                ", BillingAdress=" + billingAdrress +
                 '}';
+    }
+
+    public List<LineItem> getItems() {
+        return items;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public void setBillingAdrress(String billingAdrress) {
+        this.billingAdrress = billingAdrress;
     }
 }
