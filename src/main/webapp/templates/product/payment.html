@@ -39,12 +39,12 @@
     </div>
     <div class="container">
         <ul class="nav nav-tabs">
-            <li class="active"><adata-toggle="tab" href="#menu1">Credit Card</a></li>
+            <li class="active"><a data-toggle="tab" href="#menu1">Credit Card</a></li>
             <li><a data-toggle="tab" href="#menu2">PayPal</a></li>
         </ul>
 
         <div class="tab-content">
-            <div id="menu1" class="tab-pane fade">
+            <div id="menu1" class="tab-pane fade in active">
                 <form action="/payment?payment-method=credit" method="post">
                     <div class="form-row">
                         <div class="col-md-6">
@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="validationDefault02">Password</label>
-                            <input type="text" class="form-control" id="validationDefault02" name="last_name" required>
+                            <input type="password" class="form-control" id="validationDefault02" name="last_name" required>
                         </div>
                     </div>
                     <div class="form-row">

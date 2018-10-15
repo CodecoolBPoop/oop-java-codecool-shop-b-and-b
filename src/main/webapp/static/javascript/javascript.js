@@ -1,6 +1,6 @@
 function addToCart(e) {
     e.preventDefault();
-    let button = e.target;
+    var button = e.target;
     $.ajax({
         url: "/ajax/add-to-cart",
         type: "POST",
@@ -25,7 +25,6 @@ function changeQuantity(e) {
     var quantity = e.target.parentElement.firstChild.value;
     if (quantity == "" || quantity >99) {
         e.target.parentElement.firstChild.value = e.target.dataset.quantity;
-        alert("Please enter a number between 0 and 99")
     }else {
         var name = e.target.dataset.name;
         $.ajax({
