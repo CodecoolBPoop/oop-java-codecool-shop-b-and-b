@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.JdbcBase;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -11,11 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProductDaoJDBC implements ProductDao {
-
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/shoptest";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "q8h1j5b321";
+public class ProductDaoJDBC implements ProductDao, JdbcBase {
 
     @Override
     public void add(Product product) {
@@ -57,12 +54,5 @@ public class ProductDaoJDBC implements ProductDao {
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
         return null;
-    }
-
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                DATABASE,
-                DB_USER,
-                DB_PASSWORD);
     }
 }
