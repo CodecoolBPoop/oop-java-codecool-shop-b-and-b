@@ -40,7 +40,10 @@ function changeQuantity(e) {
             }
         });
     }
+}
 
+function setRegister() {
+    $(".register").html("<a href='/register'>Sign Up</a>");
 
 }
 
@@ -48,6 +51,7 @@ function main() {
     $(".addToCart").click(addToCart);
     $(".shoppingCart").click(toShoppingCart);
     $(".refresh").click(changeQuantity);
+    setRegister();
 }
 
 main();
