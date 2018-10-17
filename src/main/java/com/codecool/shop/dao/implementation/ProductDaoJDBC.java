@@ -1,15 +1,15 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.JdbcBase;
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoJDBC implements ProductDao, JdbcBase {
@@ -33,17 +33,58 @@ public class ProductDaoJDBC implements ProductDao, JdbcBase {
 
     @Override
     public Product find(int id) {
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM products WHERE id=?");
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                ProductCategoryDao productCategoryDao = new ProductCategoryDaoJDBC();
+                ProductCategory category = productCategoryDao.find(resultSet.getInt("category_id"));
+                SupplierDao supplierDao = new SupplierDaoJDBC();
+                Supplier supplier = supplierDao.find(resultSet.getInt("supplier_id"));
+                Product product = new Product(resultSet.getString("name"),resultSet.getFloat("price"),resultSet.getString("currency"),resultSet.getString("description"),category,supplier);
+                product.setId(resultSet.getInt("id"));
+                return product;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public void remove(int id) {
-
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM products WHERE id=?");
+            preparedStatement.setInt(1,id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<Product> getAll() {
-        return null;
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM products");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ProductCategoryDao productCategoryDao = new ProductCategoryDaoJDBC();
+                ProductCategory category = productCategoryDao.find(resultSet.getInt("category_id"));
+                SupplierDao supplierDao = new SupplierDaoJDBC();
+                Supplier supplier = supplierDao.find(resultSet.getInt("supplier_id"));
+                Product product = new Product(resultSet.getString("name"),resultSet.getFloat("price"),resultSet.getString("currency"),resultSet.getString("description"),category,supplier);
+                product.setId(resultSet.getInt("id"));
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     @Override

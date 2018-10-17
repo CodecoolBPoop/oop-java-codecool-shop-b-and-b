@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductCategoryDaoJDBCTest {
     @Test
     public void testAddCategory(){
-        ProductCategoryDaoJDBC productCategoryDaoJDBC = new ProductCategoryDaoJDBC();
+        ProductCategoryDao productCategoryDaoJDBC = new ProductCategoryDaoJDBC();
         productCategoryDaoJDBC.add(new ProductCategory("TestCategory22","TestDepartment", "This is a test category2"));
         productCategoryDaoJDBC.add(new ProductCategory("testcategory33", "testdepartment", "Test category 3"));
     }
