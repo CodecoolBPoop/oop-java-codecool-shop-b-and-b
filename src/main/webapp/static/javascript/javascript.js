@@ -42,16 +42,30 @@ function changeQuantity(e) {
     }
 }
 
-function setRegister() {
-    $(".register").html("<a href='/register'>Sign Up</a>");
+function getSessionID() {
+    $.ajax({
+        url: "/ajax/get-session-id",
+        type: "POST",
+        data: {},
+        success: function (answer) {
+            console.log(answer);
+            return answer;
+        },
+        error: function () {
+            alert("Something went wrong");
+        }
+    });
+}
 
+function setButtons() {
+    let sesId = getSessionID();
 }
 
 function main() {
     $(".addToCart").click(addToCart);
     $(".shoppingCart").click(toShoppingCart);
     $(".refresh").click(changeQuantity);
-    setRegister();
+    setButtons();
 }
 
 main();

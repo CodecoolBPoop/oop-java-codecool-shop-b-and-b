@@ -34,7 +34,7 @@ public class ProductController extends HttpServlet {
 
 
         // SESSION ATTRIBUTE SETTER/GETTER
-//        req.getSession().setAttribute("id", "1");
+        req.getSession().setAttribute("id", "1");
 //        System.out.println(req.getSession(false).getAttribute("id"));
 
         int totalItems = 0;
