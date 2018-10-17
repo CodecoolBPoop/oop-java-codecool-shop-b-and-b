@@ -10,6 +10,13 @@ import java.util.List;
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao, JdbcBase {
 
+    private static ProductCategoryDao instance = new ProductCategoryDaoJDBC();
+
+    public static ProductCategoryDao getInstance() {
+        return instance;
+    }
+
+
     @Override
     public void add(ProductCategory category) {
         try {
@@ -19,6 +26,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao, JdbcBase {
             preparedStatement.setString(2,category.getDescription());
             preparedStatement.setString(3,category.getDepartment());
             preparedStatement.execute();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -35,6 +43,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao, JdbcBase {
                 int categoryid = result.getInt("id");
                 ProductCategory productCategory = new ProductCategory(result.getString("name"),result.getString("department"), result.getString("description"));
                 productCategory.setId(categoryid);
+                connection.close();
                 return  productCategory;
             }
         } catch (SQLException e) {
@@ -50,6 +59,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao, JdbcBase {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM categories WHERE id=?");
             preparedStatement.setInt(1,id);
             preparedStatement.execute();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,6 +77,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao, JdbcBase {
                 category.setId(rs.getInt("id"));
                 categories.add(category);
             }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

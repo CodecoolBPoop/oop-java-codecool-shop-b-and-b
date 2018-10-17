@@ -5,6 +5,7 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.CurrentOrders;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Order;
@@ -26,9 +27,9 @@ public class CartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws SecurityException, IOException {
         if (CurrentOrders.getOrder(1) == null) {
-            new Order();
+            new Order(1);
         }
-        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(Integer.parseInt(req.getParameter("id"))));
+        CurrentOrders.getOrder(1).addItem(ProductDaoJDBC.getInstance().find(Integer.parseInt(req.getParameter("id"))));
 
         String answer = String.valueOf(CurrentOrders.getOrder(1).getTotalItems());
         resp.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.

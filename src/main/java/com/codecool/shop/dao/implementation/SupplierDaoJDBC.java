@@ -14,6 +14,12 @@ import java.util.List;
 
 public class SupplierDaoJDBC implements SupplierDao, JdbcBase {
 
+    private static SupplierDao instance = new SupplierDaoJDBC();
+
+    public static SupplierDao getInstance() {
+        return instance;
+    }
+
     @Override
     public void add(Supplier supplier) {
         try {
@@ -22,6 +28,7 @@ public class SupplierDaoJDBC implements SupplierDao, JdbcBase {
             preparedStatement.setString(1,supplier.getName());
             preparedStatement.setString(2, supplier.getDescription());
             preparedStatement.execute();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -37,6 +44,7 @@ public class SupplierDaoJDBC implements SupplierDao, JdbcBase {
             while (resultSet.next()) {
                 Supplier supplier = new Supplier(resultSet.getString("name"), resultSet.getString("description"));
                 supplier.setId(resultSet.getInt("id"));
+                connection.close();
                 return supplier;
             }
 
@@ -53,6 +61,7 @@ public class SupplierDaoJDBC implements SupplierDao, JdbcBase {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM suppliers WHERE id=?");
             preparedStatement.setInt(1,id);
             preparedStatement.execute();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,6 +79,7 @@ public class SupplierDaoJDBC implements SupplierDao, JdbcBase {
                 supplier.setId(rs.getInt("id"));
                 categories.add(supplier);
             }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

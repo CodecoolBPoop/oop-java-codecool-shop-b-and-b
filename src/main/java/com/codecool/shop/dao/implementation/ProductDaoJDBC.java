@@ -14,6 +14,12 @@ import java.util.List;
 
 public class ProductDaoJDBC implements ProductDao, JdbcBase {
 
+
+    private static ProductDao instance = new ProductDaoJDBC();
+
+    public static ProductDao getInstance() {
+        return instance;
+    }
     @Override
     public void add(Product product) {
         try {
@@ -60,6 +66,7 @@ public class ProductDaoJDBC implements ProductDao, JdbcBase {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM products WHERE id=?");
             preparedStatement.setInt(1,id);
             preparedStatement.execute();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,6 +88,7 @@ public class ProductDaoJDBC implements ProductDao, JdbcBase {
                 product.setId(resultSet.getInt("id"));
                 products.add(product);
             }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -89,11 +97,49 @@ public class ProductDaoJDBC implements ProductDao, JdbcBase {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        return null;
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM products WHERE supplier_id=?");
+            preparedStatement.setInt(1,supplier.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ProductCategoryDao productCategoryDao = new ProductCategoryDaoJDBC();
+                ProductCategory category = productCategoryDao.find(resultSet.getInt("category_id"));
+                SupplierDao supplierDao = new SupplierDaoJDBC();
+                supplier = supplierDao.find(resultSet.getInt("supplier_id"));
+                Product product = new Product(resultSet.getString("name"),resultSet.getFloat("price"),resultSet.getString("currency"),resultSet.getString("description"),category,supplier);
+                product.setId(resultSet.getInt("id"));
+                products.add(product);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        return null;
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM products WHERE category_id=?");
+            preparedStatement.setInt(1,productCategory.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ProductCategoryDao productCategoryDao = new ProductCategoryDaoJDBC();
+                productCategory = productCategoryDao.find(resultSet.getInt("category_id"));
+                SupplierDao supplierDao = new SupplierDaoJDBC();
+                Supplier supplier = supplierDao.find(resultSet.getInt("supplier_id"));
+                Product product = new Product(resultSet.getString("name"),resultSet.getFloat("price"),resultSet.getString("currency"),resultSet.getString("description"),productCategory,supplier);
+                product.setId(resultSet.getInt("id"));
+                products.add(product);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 }
