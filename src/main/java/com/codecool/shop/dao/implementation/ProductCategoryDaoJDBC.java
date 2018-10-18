@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoryDaoJDBC implements ProductCategoryDao, JdbcBase {
+public class ProductCategoryDaoJDBC extends JdbcBase implements ProductCategoryDao {
 
     private static ProductCategoryDao instance = new ProductCategoryDaoJDBC();
 

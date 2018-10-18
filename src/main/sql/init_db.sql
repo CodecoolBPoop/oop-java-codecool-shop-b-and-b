@@ -73,7 +73,6 @@ CREATE TABLE "products" (
 );
 
 
-
 CREATE TABLE "categories" (
 	"id" serial NOT NULL,
 	"name" VARCHAR(255) NOT NULL,

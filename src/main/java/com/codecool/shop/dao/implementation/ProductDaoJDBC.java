@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDaoJDBC implements ProductDao, JdbcBase {
+public class ProductDaoJDBC extends JdbcBase implements ProductDao {
 
 
     private static ProductDao instance = new ProductDaoJDBC();

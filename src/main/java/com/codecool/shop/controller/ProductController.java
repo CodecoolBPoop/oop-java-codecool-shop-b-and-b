@@ -57,7 +57,7 @@ public class ProductController extends HttpServlet {
 
         context.setVariables(params);
         context.setVariable("totalItems", totalItems);
-        context.setVariable("categories", ProductCategoryDaoMem.getInstance().getAll());
+        context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
         context.setVariable("recipient", "World");
         context.setVariable("products", params.get("products"));

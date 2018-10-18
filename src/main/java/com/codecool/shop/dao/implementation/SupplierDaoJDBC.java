@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierDaoJDBC implements SupplierDao, JdbcBase {
+public class SupplierDaoJDBC extends JdbcBase implements SupplierDao {
 
     private static SupplierDao instance = new SupplierDaoJDBC();
 

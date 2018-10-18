@@ -16,9 +16,12 @@ class ProductDaoJDBCTest {
     @Test
     public void testAddingProductToDB(){
         ProductDao productDaoJDBC = new ProductDaoJDBC();
+        ((ProductDaoJDBC) productDaoJDBC).setDatabaseForTest();
         SupplierDao supplierDao = new SupplierDaoJDBC();
+        ((SupplierDaoJDBC) supplierDao).setDatabaseForTest();
         Supplier supplier = supplierDao.find(3);
         ProductCategoryDao productCategoryDao = new ProductCategoryDaoJDBC();
+        ((ProductCategoryDaoJDBC) productCategoryDao).setDatabaseForTest();
         ProductCategory cat = productCategoryDao.find(8);
         Product product = new Product("Test",200,"USD","This is a test",cat,supplier);
         productDaoJDBC.add(product);
@@ -27,6 +30,7 @@ class ProductDaoJDBCTest {
     @Test
     public void testFindProductById(){
         ProductDao productDao = new ProductDaoJDBC();
+        ((ProductDaoJDBC) productDao).setDatabaseForTest();
         Product product = productDao.find(2);
         System.out.println(product);
     }
@@ -34,6 +38,7 @@ class ProductDaoJDBCTest {
     @Test
     public void testGetAll(){
         ProductDao productDao = new ProductDaoJDBC();
+        ((ProductDaoJDBC) productDao).setDatabaseForTest();
         List<Product> products = productDao.getAll();
         for (Product product: products){
             System.out.println(product);

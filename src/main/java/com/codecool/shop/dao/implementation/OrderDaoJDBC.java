@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
-public class OrderDaoJDBC implements JdbcBase {
+public class OrderDaoJDBC extends JdbcBase {
 
     public Order getOrder(int userid){
         try {
