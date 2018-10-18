@@ -6,8 +6,11 @@ function addToCart(e) {
         type: "POST",
         data: {action: "add",id: button.id},
         success: function (answer) {
-            console.log("item added to cart");
-            $("#badge").text(answer);
+            if (answer === "") {
+                alert("Please log in to add to cart!");
+            } else {
+                $("#badge").text(answer);
+            }
         },
         error: function () {
             alert("Something went wrong");
@@ -49,7 +52,7 @@ function getSessionID() {
         data: {},
         success: function (answer) {
             console.log(answer);
-            return answer;
+            setButtons(answer);
         },
         error: function () {
             alert("Something went wrong");
@@ -57,15 +60,23 @@ function getSessionID() {
     });
 }
 
-function setButtons() {
-    let sesId = getSessionID();
+function setButtons(sessionID) {
+    console.log("Session id is: ");
+    console.log(sessionID);
+    if (sessionID == "") {
+        $(".register").html("<a href='/sign-up'>Sign up</a>");
+        $(".login").html("<a href='/login'>Log in<a/>");
+    } else {
+        $(".user").html("<a href='/user'>Profile</a>");
+        $(".logout").html("<a href='/logout'>Logout<a/>");
+    }
 }
 
 function main() {
+    getSessionID();
     $(".addToCart").click(addToCart);
     $(".shoppingCart").click(toShoppingCart);
     $(".refresh").click(changeQuantity);
-    setButtons();
 }
 
 main();

@@ -25,12 +25,18 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws SecurityException, IOException {
+        String answer = "";
         if (CurrentOrders.getOrder(1) == null) {
             new Order();
         }
-        CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(Integer.parseInt(req.getParameter("id"))));
+        if (req.getSession().getAttribute("id") == "") {
+            // don't change the answer
+        } else {
+            CurrentOrders.getOrder(1).addItem(ProductDaoMem.getInstance().find(Integer.parseInt(req.getParameter("id"))));
+            answer = String.valueOf(CurrentOrders.getOrder(1).getTotalItems());
+        }
 
-        String answer = String.valueOf(CurrentOrders.getOrder(1).getTotalItems());
+
         resp.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
         resp.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         resp.getWriter().write(answer);

@@ -32,7 +32,7 @@ public class SessionIDController extends HttpServlet {
             System.out.println(e);
         }
         resp.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-        resp.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(answer);
     }
 }
