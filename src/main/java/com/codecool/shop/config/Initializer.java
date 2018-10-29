@@ -3,9 +3,7 @@ package com.codecool.shop.config;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -19,9 +17,9 @@ public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        /*ProductDao productDataStore = new ProductDaoJDBC();
+        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJDBC();
+        SupplierDao supplierDataStore = new SupplierDaoJDBC();
 
         //setting up a new supplier
         Supplier bohi = new Supplier("Bohi", "The big nothing seller.");
@@ -36,6 +34,11 @@ public class Initializer implements ServletContextListener {
         ProductCategory scam = new ProductCategory("Scam", "Scam", "Usually these products are nothing but scam!");
         productCategoryDataStore.add(scam);
 
+        bohi = supplierDataStore.find(1);
+        bazsi = supplierDataStore.find(2);
+
+        nothing = productCategoryDataStore.find(1);
+        scam = productCategoryDataStore.find(2);
         //setting up products and printing it
         productDataStore.add(new Product("Money to the trashcan", 10, "USD", "Fantastic price. Our bank account is the trashcan ;)", nothing, bohi));
         productDataStore.add(new Product("Nothing", 99, "USD", "Keyboard is not included. No usb ports. Basically it is NOTHING.", nothing, bohi));
@@ -47,6 +50,6 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("What is this??", 255,"USD", "What are you doing on this website brother??", scam,bohi));
         productDataStore.add(new Product("The money taker", 400,"USD", "Shut up, don't ask questions.We are just taking your money!",nothing,bohi));
         productDataStore.add(new Product("Trap", 300,"USD","It's a trap!",scam,bazsi));
-
+        */
     }
 }

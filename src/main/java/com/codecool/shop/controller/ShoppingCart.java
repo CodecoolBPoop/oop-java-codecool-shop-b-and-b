@@ -20,7 +20,7 @@ public class ShoppingCart extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         if (CurrentOrders.getOrder(1)==null){
-            new Order();
+            new Order(1);
         }
         context.setVariable("sumOfPrice",CurrentOrders.getOrder(1).getTotalPrice());
         context.setVariable("orderid",1);
