@@ -49,7 +49,6 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Huge mistake", 911,"USD", "This is a huge mistake!",scam,bazsi));
         productDataStore.add(new Product("What is this??", 255,"USD", "What are you doing on this website brother??", scam,bohi));
         productDataStore.add(new Product("The money taker", 400,"USD", "Shut up, don't ask questions.We are just taking your money!",nothing,bohi));
-        productDataStore.add(new Product("Trap", 300,"USD","It's a trap!",scam,bazsi));
-        */
+        productDataStore.add(new Product("Trap", 300,"USD","It's a trap!",scam,bazsi));*/
     }
 }

@@ -31,10 +31,15 @@ public class ProductController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         Map params = new HashMap<>();
+        String userId = "";
 
 
         // SESSION ATTRIBUTE SETTER/GETTER
-        req.getSession().setAttribute("id", "");
+        try {
+            userId = req.getSession(false).getAttribute("id").toString();
+        } catch (NullPointerException e) {
+            req.getSession().setAttribute("id", userId);
+        }
 //        System.out.println(req.getSession(false).getAttribute("id"));
 
         int totalItems = 0;

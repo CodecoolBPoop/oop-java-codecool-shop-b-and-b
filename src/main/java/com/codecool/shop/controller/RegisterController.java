@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.CurrentOrders;
 import com.codecool.shop.model.Order;
+import com.codecool.shop.hash.PasswordAuthentication;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -21,5 +22,14 @@ public class RegisterController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         engine.process("product/sign-up.html", context, resp.getWriter());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String password = req.getParameter("password");
+        String hashedPassword = new PasswordAuthentication().hash(password);
+        System.out.println(hashedPassword);
+        req.getSession().setAttribute("id", "1");
+        resp.sendRedirect("/");
     }
 }
