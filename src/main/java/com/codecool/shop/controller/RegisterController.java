@@ -1,9 +1,12 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.dao.implementation.CurrentOrders;
+import com.codecool.shop.dao.implementation.UserDaoJDBC;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.hash.PasswordAuthentication;
+import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -26,10 +29,24 @@ public class RegisterController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        UserDao userStore = UserDaoJDBC.getInstance();
         String password = req.getParameter("password");
+        String email = req.getParameter("email");
+        String firstName = req.getParameter("first_name");
+        String lastName = req.getParameter("last_name");
+        String phoneNumber = req.getParameter("phone_number");
+        String shippingAddress = req.getParameter("shipping_address");
+        String billingAddress = req.getParameter("billing_address");
         String hashedPassword = new PasswordAuthentication().hash(password);
+        System.out.println("email: " + email +
+                            "\npassword: " + password +
+                            "\nfirst name: " + firstName +
+                            "\nlast name: " + lastName +
+                            "\nphone number: " + phoneNumber +
+                            "\nshipping address: " + shippingAddress +
+                            "\nbilling address: " + billingAddress);
         System.out.println(hashedPassword);
-        req.getSession().setAttribute("id", "1");
+        userStore.add(new User(email, hashedPassword, firstName, lastName, phoneNumber, shippingAddress, billingAddress));
         resp.sendRedirect("/");
     }
 }

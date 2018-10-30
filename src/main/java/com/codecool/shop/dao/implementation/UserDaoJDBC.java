@@ -2,6 +2,7 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.JdbcBase;
 import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.hash.PasswordAuthentication;
 import com.codecool.shop.model.User;
 
 import java.sql.*;
@@ -22,9 +23,18 @@ public class UserDaoJDBC extends JdbcBase implements UserDao {
             preparedStatement.setString(1, email);
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
-                String hashedPassword = result.getString("password");
-                // TODO check if the stored hash equals to given password's hash.
-
+                PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
+                String storedHashedPassword = result.getString("password");
+                if (!passwordAuthentication.authenticate(password, storedHashedPassword)) return null;
+                User user = new User(result.getString("email"),
+                                    result.getString("password"),
+                                    result.getString("first_name"),
+                                    result.getString("last_name"),
+                                    result.getString("phone_number"),
+                                    result.getString("shipping_address"),
+                                    result.getString("billing_address"));
+                user.setId(result.getInt("id"));
+                return user;
             }
             System.out.println(result);
 

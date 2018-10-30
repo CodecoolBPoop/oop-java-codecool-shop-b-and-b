@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.dao.implementation.UserDaoJDBC;
+import com.codecool.shop.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,12 +20,14 @@ public class LoginController extends  HttpServlet{
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         UserDao userStore = UserDaoJDBC.getInstance();
-        System.out.println("email: " + email + " password: " + password);
-        System.out.println("user: " + userStore.getUser(email, password));
-        if (userStore.getUser(email, password) == null){
+        User user = userStore.getUser(email, password);
+        if (user == null){
             resp.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write("Username or password is incorrect!");
+        } else {
+            req.getSession().setAttribute("id", user.getId());
+            resp.sendRedirect("/");
         }
     }
 }

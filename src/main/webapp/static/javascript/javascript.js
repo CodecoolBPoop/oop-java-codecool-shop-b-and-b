@@ -108,6 +108,7 @@ function buttonListeners() {
 
 function main() {
     getSessionID();
+    buttonListeners();
 }
 
 main();

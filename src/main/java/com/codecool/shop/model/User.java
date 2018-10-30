@@ -10,8 +10,7 @@ public class User {
     private String shippingAddress;
     private String billingAddress;
 
-    public User(int id, String email, String password, String firstName, String lastName, String phoneNumber, String shippingAddress, String billingAddress) {
-        this.id = id;
+    public User(String email, String password, String firstName, String lastName, String phoneNumber, String shippingAddress, String billingAddress) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
