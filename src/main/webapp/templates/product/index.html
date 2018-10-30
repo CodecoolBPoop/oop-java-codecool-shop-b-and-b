@@ -112,6 +112,31 @@
     </div>
 
 </div>
+<div class="modal fade checkout-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="loginModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Log In</h2>
+            </div>
+            <div class="modal-body">
+                <form action="/">
+                    <div class="form-group">
+                        <label for="validationDefault01">E-mail</label>
+                        <input type="email" class="form-control email" id="validationDefault01" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="validationDefault02">Password</label>
+                        <input type="password" class="form-control password" id="validationDefault02" name="password" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary submit">Login</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div th:replace="footer.html :: copy"></div>
 
