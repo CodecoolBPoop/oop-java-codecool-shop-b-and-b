@@ -29,7 +29,7 @@ public class Order {
         this.totalPrice = 0;
         CurrentOrders.addOrder(this);
         this.userid = userid;
-        this.id =1;
+        this.id = userid;
     }
 
     public void addItem(Product product){

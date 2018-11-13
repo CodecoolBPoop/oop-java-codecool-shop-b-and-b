@@ -18,6 +18,25 @@ function addToCart(e) {
     });
 }
 
+function getTotalItems() {
+    $.ajax({
+        url: "/ajax/get-sum-of-items",
+        type: "POST",
+        data: {},
+        success: function (answer) {
+            if (answer === "") {
+                $("#badge").text("0");
+            } else {
+                $("#badge").text(answer);
+            }
+        },
+        error: function () {
+            alert("Something went wrong");
+        }
+    });
+
+}
+
 function logIn(e) {
     e.preventDefault();
     let email = $(".email").val();
@@ -107,6 +126,7 @@ function buttonListeners() {
 }
 
 function main() {
+    getTotalItems();
     getSessionID();
     buttonListeners();
 }

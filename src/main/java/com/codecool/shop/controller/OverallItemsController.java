@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/ajax/add-to-cart"})
-public class CartController extends HttpServlet {
+@WebServlet(urlPatterns = {"/ajax/get-sum-of-items"})
+public class OverallItemsController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws SecurityException, IOException {
@@ -30,11 +30,9 @@ public class CartController extends HttpServlet {
 
         if (req.getSession().getAttribute("id") != "") {
             int userId = (int) (req.getSession().getAttribute("id"));
-            if (CurrentOrders.getOrder(userId) == null) {
-                new Order(userId);
+            if (CurrentOrders.getOrder(userId) != null) {
+                answer = String.valueOf(CurrentOrders.getOrder(userId).getTotalItems());
             }
-            CurrentOrders.getOrder(userId).addItem(ProductDaoJDBC.getInstance().find(Integer.parseInt(req.getParameter("id"))));
-            answer = String.valueOf(CurrentOrders.getOrder(userId).getTotalItems());
         }
 
         resp.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.

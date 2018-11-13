@@ -19,12 +19,16 @@ public class ShoppingCart extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        if (CurrentOrders.getOrder(1)==null){
-            new Order(1);
+        int userId = 0;
+        if ((req.getSession().getAttribute("id")) != null){
+            userId = (int) (req.getSession().getAttribute("id"));
+            if (CurrentOrders.getOrder(userId)==null){
+                new Order(userId);
+            }
         }
-        context.setVariable("sumOfPrice",CurrentOrders.getOrder(1).getTotalPrice());
+        context.setVariable("sumOfPrice",CurrentOrders.getOrder(userId).getTotalPrice());
         context.setVariable("orderid",1);
-        context.setVariable("items", CurrentOrders.getOrder(1).getItems());
+        context.setVariable("items", CurrentOrders.getOrder(userId).getItems());
         engine.process("product/shopping-cart.html", context, resp.getWriter());
     }
 }
