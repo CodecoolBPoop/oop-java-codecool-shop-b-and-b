@@ -1,7 +1,9 @@
 package com.codecool.shop.model;
 
 import com.codecool.shop.dao.implementation.CurrentOrders;
+import com.codecool.shop.dao.implementation.OrderDaoJDBC;
 
+import javax.sound.sampled.Line;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,24 +18,24 @@ public class Order {
     private String phone;
     private String shippingAddress;
     private String billingAdrress;
-
-
+    private int userid;
     public int getId() {
         return id;
     }
 
-    public Order() {
-        this.id = CurrentOrders.createNewOrderId();
+    public Order(int userid) {
         this.items = new LinkedList<>();
         this.totalItems = 0;
         this.totalPrice = 0;
         CurrentOrders.addOrder(this);
+        this.userid = userid;
+        this.id = userid;
     }
 
     public void addItem(Product product){
         LineItem item = new LineItem(product);
         for (LineItem currentItem:items){
-            if (currentItem.name == item.name){
+            if (currentItem.name.equals(item.name) ){
                 currentItem.increaseQuantity();
                 this.totalPrice += item.getDefaultPrice();
                 this.totalItems += 1;
@@ -126,5 +128,27 @@ public class Order {
 
     public void setBillingAdrress(String billingAdrress) {
         this.billingAdrress = billingAdrress;
+    }
+
+    public void saveOrder(){
+        OrderDaoJDBC orderDaoJDBC = new OrderDaoJDBC();
+        orderDaoJDBC.saveOrder(this);
+    }
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setItems(List<LineItem> items){
+        this.items = items;
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(){
+        this.userid = userid;
     }
 }

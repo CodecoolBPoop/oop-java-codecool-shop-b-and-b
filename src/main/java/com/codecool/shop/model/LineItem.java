@@ -17,6 +17,9 @@ public class LineItem extends BaseModel {
         totalPrice = product.getDefaultPrice();
     }
 
+
+
+
     public int getQuantity() {
         return quantity;
     }
