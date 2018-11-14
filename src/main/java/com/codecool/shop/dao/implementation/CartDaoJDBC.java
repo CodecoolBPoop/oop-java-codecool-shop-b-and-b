@@ -30,7 +30,7 @@ public class CartDaoJDBC extends JdbcBase {
         return null;
     }
 
-
+    // TODO
     public void saveCart(Order cart) {
         try {
             Connection connection = getConnection();
@@ -38,17 +38,22 @@ public class CartDaoJDBC extends JdbcBase {
             preparedStatement.setInt(1,cart.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                if (resultSet != null){
-                    PreparedStatement preparedStatement2= connection.prepareStatement("DELETE FROM carts WHERE id=?");
-                    preparedStatement2.setInt(1, cart.getId());
-                    preparedStatement2.execute();
-                }
-                PreparedStatement preparedStatement1 = connection.prepareStatement("INSERT INTO carts (user_id, total_items, date,id) VALUES (?,?,?,?,?)");
-                preparedStatement1.setInt(1,cart.getUserid());
-                preparedStatement1.setDouble(2,cart.getTotalPrice());
-                preparedStatement1.setInt(3,cart.getTotalItems());
-                preparedStatement1.setDate(4, new Date(System.currentTimeMillis()));
-                preparedStatement1.setInt(5,cart.getId());
+                // Delete existing cart
+                PreparedStatement preparedStatement1 = connection.prepareStatement("DELETE FROM carts WHERE id=?");
+                preparedStatement1.setInt(1, cart.getId());
+                preparedStatement1.execute();
+
+                // Save cart into db
+                PreparedStatement preparedStatement2 = connection.prepareStatement("INSERT INTO carts (user_id) VALUES (?)");
+                preparedStatement2.setInt(1,cart.getUserid());
+                preparedStatement2.execute();
+                // Get the carts db generated id
+                PreparedStatement preparedStatement3 = connection.prepareStatement("SELECT id FROM carts WHERE user_id=?");
+                preparedStatement3.setInt(1, cart.getId());
+                ResultSet resultSet1 = preparedStatement3.executeQuery();
+                int cartId = resultSet1.getInt("id");
+                // save line items into db
+
 
             }
             connection.close();
@@ -56,6 +61,23 @@ public class CartDaoJDBC extends JdbcBase {
             e.printStackTrace();
         }
 
+    }
+
+
+    // TODO
+    public void saveLineItems(List<LineItem> lineItems, int cartId) {
+        try {
+            Connection connection = getConnection();
+            for (LineItem lineItem: lineItems) {
+                PreparedStatement preparedStatement1 = connection.prepareStatement("INSERT INTO lineitems (cart_id, quantity, product_id) VALUES (?, ?, ?)");
+                preparedStatement1.setInt(1,cartId);
+                preparedStatement1.setInt(2,lineItem.getQuantity());
+                preparedStatement1.setString(3,lineItem.ge);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 
     public List<LineItem> getLineItems(int cartid){

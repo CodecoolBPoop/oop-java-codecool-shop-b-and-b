@@ -24,14 +24,10 @@ function getTotalItems() {
         type: "POST",
         data: {},
         success: function (answer) {
-            if (answer === "") {
-                $("#badge").text("0");
-            } else {
-                $("#badge").text(answer);
-            }
+            $("#badge").text(answer);
         },
         error: function () {
-            alert("Something went wrong");
+            alert("Something went very wrong");
         }
     });
 
@@ -93,7 +89,7 @@ function saveCart(e) {
     console.log("Saving launched");
 
     $.ajax({
-        url: "/ajax/save-cart",
+        url: "/ajax/cart-save",
         type: "POST",
         data: {},
         success: function (answer) {

@@ -26,7 +26,7 @@ public class OverallItemsController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws SecurityException, IOException {
-        String answer = "";
+        String answer = "0";
 
         if (req.getSession().getAttribute("id") != "") {
             int userId = (int) (req.getSession().getAttribute("id"));
