@@ -20,4 +20,4 @@ target/
 hs_err_pid*
 
 # SQL Connection file
-./src/main/java/com/codecool/shop/dao/JdbcBase.java
+/src/main/java/com/codecool/shop/dao/JdbcBase.java

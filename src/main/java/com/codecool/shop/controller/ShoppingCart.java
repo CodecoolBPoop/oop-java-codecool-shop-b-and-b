@@ -21,8 +21,12 @@ public class ShoppingCart extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         int userId = 0;
         if ((req.getSession().getAttribute("id")) != null){
-            userId = (int) (req.getSession().getAttribute("id"));
-            if (CurrentOrders.getOrder(userId)==null){
+            try {
+                userId = (int) (req.getSession().getAttribute("id"));
+            } catch (ClassCastException e) {
+                // pass
+            }
+            if (CurrentOrders.getOrder(userId) == null) {
                 new Order(userId);
             }
         }
