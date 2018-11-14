@@ -3,7 +3,7 @@ package com.codecool.shop.model;
 import java.util.Currency;
 
 public class LineItem extends BaseModel {
-
+    private int productId;
     private int quantity;
     private float defaultPrice;
     private Currency defaultCurrency;
@@ -15,10 +15,15 @@ public class LineItem extends BaseModel {
         this.defaultPrice = product.getDefaultPrice();
         this.quantity = 1;
         totalPrice = product.getDefaultPrice();
+        productId = product.getId();
     }
 
 
 
+
+    public int getProductId() {
+        return productId;
+    }
 
     public int getQuantity() {
         return quantity;

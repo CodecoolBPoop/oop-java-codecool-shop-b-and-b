@@ -32,6 +32,12 @@ public class Order {
         this.id = userid;
     }
 
+    public Order(List<LineItem> items, double totalPrice) {
+        this.items = items;
+        this.totalPrice = totalPrice;
+
+    }
+
     public void addItem(Product product){
         LineItem item = new LineItem(product);
         for (LineItem currentItem:items){

@@ -17,9 +17,9 @@ public class CurrentOrders {
         orders.remove(order);
     }
 
-    public static Order getOrder(int id){
+    public static Order getOrder(int userid){
         for (Order order : orders) {
-            if (order.getId() == id){
+            if (order.getUserid() == userid){
                 return order;
             }
         }

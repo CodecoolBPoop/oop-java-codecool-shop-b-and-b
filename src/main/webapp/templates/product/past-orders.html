@@ -1,12 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta name="author" content="Codecool" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Codecool Shop</title>
-
+    <title>Shopping Cart</title>
     <!-- Latest compiled and minified Jquery -->
     <script src="/static/javascript/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -29,13 +28,25 @@
 
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-</head>
 
+</head>
 <body>
-    <div class="jumbotron text-center">
-        <h1>You just wasted your money!</h1>
-        <a class="btn btn-danger" href="/" role="button">Back to the front page</a>
+<div class="jumbotron text-center">
+    <h1>Order History</h1>
+    <a class="btn btn-warning" href="/" role="button">Back to the front page</a>
+</div>
+<div th:each="order, iterStat:${orders}" class="container mycard">
+    <div th:each="item, iterStat:${order.getItems()}" class="container">
+        <div class="row">
+            <div th:text="${item.getName()}" class="col-sm-3"></div>
+            <div class="col-sm-3"th:text="${item.getQuantity()}"></div>
+            <div th:text="'Unit price: '+${item.getDefaultPrice()} +' USD'" class="col-sm-3"></div>
+            <div th:text="'Subtotal: ' + ${item.getTotalPrice()} +' USD'" class="col-sm-3"></div>
+        </div>
     </div>
-    <div th:replace="footer.html :: copy"></div>
+    <div th:class="row">
+        <div class="col-sm-12"th:text="'Total money wasted: ' +${order.getTotalPrice()} + 'USD'"></div>
+    </div>
+</div>
 </body>
 </html>

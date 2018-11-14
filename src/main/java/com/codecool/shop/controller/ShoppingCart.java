@@ -33,6 +33,8 @@ public class ShoppingCart extends HttpServlet {
             } catch (ClassCastException e) {
                 // pass
             }
+        } else {
+            context.setVariable("items", null);
         }
         engine.process("product/shopping-cart.html", context, resp.getWriter());
     }

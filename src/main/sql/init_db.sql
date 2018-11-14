@@ -1,4 +1,4 @@
-ALTER TABLE "order" DROP CONSTRAINT IF EXISTS "Order_fk0";
+ALTER TABLE orders DROP CONSTRAINT IF EXISTS "Order_fk0";
 
 ALTER TABLE lineItems DROP CONSTRAINT IF EXISTS "LineItems_fk0";
 
@@ -8,7 +8,7 @@ ALTER TABLE products DROP CONSTRAINT IF EXISTS "Products_fk0";
 
 ALTER TABLE products DROP CONSTRAINT IF EXISTS "Products_fk1";
 
-DROP TABLE IF EXISTS "order";
+DROP TABLE IF EXISTS orders;
 
 DROP TABLE IF EXISTS users;
 
@@ -96,10 +96,10 @@ CREATE TABLE "suppliers" (
 
 
 
-ALTER TABLE "order" ADD CONSTRAINT "Order_fk0" FOREIGN KEY ("user_id") REFERENCES users("id");
+ALTER TABLE orders ADD CONSTRAINT "Order_fk0" FOREIGN KEY ("user_id") REFERENCES users("id");
 
 
-ALTER TABLE lineitems ADD CONSTRAINT "LineItems_fk0" FOREIGN KEY ("order_id") REFERENCES "order"("id");
+ALTER TABLE lineitems ADD CONSTRAINT "LineItems_fk0" FOREIGN KEY ("order_id") REFERENCES orders("id");
 ALTER TABLE lineitems ADD CONSTRAINT "LineItems_fk1" FOREIGN KEY ("product_id") REFERENCES products("id");
 
 ALTER TABLE products ADD CONSTRAINT "Products_fk0" FOREIGN KEY ("category_id") REFERENCES categories("id");

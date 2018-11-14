@@ -2,30 +2,40 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.JdbcBase;
 import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class OrderDaoJDBC extends JdbcBase {
 
-    public Order getOrder(int userid){
+    private static OrderDaoJDBC instance = new OrderDaoJDBC();
+
+    public static OrderDaoJDBC getInstance() {
+        return instance;
+    }
+
+    public List<Order> getOrders(int userid){
         try {
+            List<Order> orders = new ArrayList<>();
             Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM order WHERE user_id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM orders WHERE user_id=?");
             preparedStatement.setInt(1,userid);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                Order order = new Order(resultSet.getInt("user_id"));
-                order.setId(resultSet.getInt("id"));
-                order.setItems(getLineItems(order.getId()));
-                connection.close();
-                return order;
+                List<LineItem> lineItems = getLineItems(resultSet.getInt("id"));
+                Order order = new Order(lineItems,resultSet.getInt("total_price"));
+                orders.add(order);
             }
+            return orders;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -33,31 +43,46 @@ public class OrderDaoJDBC extends JdbcBase {
     }
 
 
-    public void saveOrder(Order order) {
+    public void saveOrder(Order currentOrder) {
         try {
             Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM order WHERE id=?");
-            preparedStatement.setInt(1,order.getId());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                if (resultSet != null){
-                   PreparedStatement preparedStatement2= connection.prepareStatement("DELETE FROM order WHERE id=?");
-                   preparedStatement2.setInt(1, order.getId());
-                   preparedStatement2.execute();
-                }
-                PreparedStatement preparedStatement1 = connection.prepareStatement("INSERT INTO order (user_id, total_price, total_items, date,id) VALUES (?,?,?,?,?)");
-                preparedStatement1.setInt(1,order.getUserid());
-                preparedStatement1.setDouble(2,order.getTotalPrice());
-                preparedStatement1.setInt(3,order.getTotalItems());
-                preparedStatement1.setDate(4, new Date(System.currentTimeMillis()));
-                preparedStatement1.setInt(5,order.getId());
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO orders (user_id, total_price, total_items) VALUES (?,?,?);");
+            preparedStatement.setInt(1,currentOrder.getUserid());
+            preparedStatement.setDouble(2,currentOrder.getTotalPrice());
+            preparedStatement.setInt(3,currentOrder.getTotalItems());
+            preparedStatement.execute();
 
+            int orderId = 1;
+            preparedStatement = connection.prepareStatement("SELECT MAX(id) AS maxId FROM orders WHERE user_id=?");
+            preparedStatement.setInt(1,currentOrder.getUserid());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                orderId = resultSet.getInt("maxId");
             }
+
+            saveLineItems(currentOrder.getItems(), orderId);
             connection.close();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void saveLineItems(List<LineItem> items, int orderid){
+        try {
+            Connection connection = getConnection();
+            for (LineItem lineItem: items){
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO lineitems(order_id, quantity, product_id) VALUES (?,?,?)");
+                preparedStatement.setInt(1, orderid);
+                preparedStatement.setInt(2,lineItem.getQuantity());
+                preparedStatement.setInt(3,lineItem.getProductId());
+                preparedStatement.execute();
+            }
+            connection.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public List<LineItem> getLineItems(int orderid){
@@ -70,6 +95,7 @@ public class OrderDaoJDBC extends JdbcBase {
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 LineItem item = new LineItem(productDao.find(resultSet.getInt("product_id")));
+                item.setQuantity(resultSet.getInt("quantity"));
                 lineItems.add(item);
             }
             connection.close();
