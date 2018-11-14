@@ -19,20 +19,22 @@ public class ShoppingCart extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        int userId = 0;
+        int userId;
         if ((req.getSession().getAttribute("id")) != null){
             try {
                 userId = (int) (req.getSession().getAttribute("id"));
+                if (CurrentOrders.getOrder(userId) == null) {
+                    new Order(userId);
+                }
+                context.setVariable("sumOfPrice",CurrentOrders.getOrder(userId).getTotalPrice());
+                context.setVariable("orderid",1);
+                context.setVariable("items", CurrentOrders.getOrder(userId).getItems());
             } catch (ClassCastException e) {
                 // pass
             }
-            if (CurrentOrders.getOrder(userId) == null) {
-                new Order(userId);
-            }
+        } else {
+            context.setVariable("items", 0);
         }
-        context.setVariable("sumOfPrice",CurrentOrders.getOrder(userId).getTotalPrice());
-        context.setVariable("orderid",1);
-        context.setVariable("items", CurrentOrders.getOrder(userId).getItems());
         engine.process("product/shopping-cart.html", context, resp.getWriter());
     }
 }
