@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class JdbcBase {
     String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    String DB_USER = "bohi";
-    String DB_PASSWORD = "Boungreth8";
+    String DB_USER = "postgres";
+    String DB_PASSWORD = "q8h1j5b321";
 
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
