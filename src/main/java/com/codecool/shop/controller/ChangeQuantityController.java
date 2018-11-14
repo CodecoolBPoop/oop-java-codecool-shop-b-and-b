@@ -20,7 +20,8 @@ public class ChangeQuantityController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String productname = req.getParameter("productName");
         int newQuantity = Integer.parseInt(req.getParameter("quantity"));
-        Order currentOrder = CurrentOrders.getOrder(1);
+        int userId = (int) req.getSession().getAttribute("id");
+        Order currentOrder = CurrentOrders.getOrder(userId);
         currentOrder.modifyQuantity(productname,newQuantity);
         logger.info("New quantity of {} set to {}.",productname,newQuantity);
 
