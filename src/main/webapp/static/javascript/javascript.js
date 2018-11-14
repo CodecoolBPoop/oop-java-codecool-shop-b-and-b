@@ -41,7 +41,7 @@ function logIn(e) {
     e.preventDefault();
     let email = $(".email").val();
     let password = $(".password").val();
-    console.log("launched");
+    console.log("Log in launched");
 
     $.ajax({
         url: "/ajax/login",
@@ -88,6 +88,23 @@ function changeQuantity(e) {
     }
 }
 
+function saveCart(e) {
+    e.preventDefault();
+    console.log("Saving launched");
+
+    $.ajax({
+        url: "/ajax/save-cart",
+        type: "POST",
+        data: {},
+        success: function (answer) {
+            alert(answer);
+        },
+        error: function () {
+            alert("Something went wrong");
+        }
+    });
+}
+
 function getSessionID() {
     $.ajax({
         url: "/ajax/get-session-id",
@@ -123,6 +140,7 @@ function buttonListeners() {
     $(".addToCart").click(addToCart);
     $(".shoppingCart").click(toShoppingCart);
     $(".refresh").click(changeQuantity);
+    $(".save").click(saveCart);
 }
 
 function main() {

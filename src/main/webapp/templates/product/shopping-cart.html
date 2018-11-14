@@ -44,6 +44,7 @@
     <div th:class="container">
         <h3 th:if="${items.size() != 0}" th:class="sum" th:text="'Total price: '+${sumOfPrice}+' USD'"></h3>
         <button th:if="${items.size() != 0}" th:data-orderid="${orderid}" data-toggle="modal" data-target=".checkout-modal" class="checkout btn btn-primary">Checkout</button>
+        <button th:if="${items.size() != 0}" class="btn btn-primary save">Save Cart</button>
         <h1 th:if="${items.size() == 0}">Your cart is empty!</h1>
     </div>
     <div class="modal fade checkout-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
